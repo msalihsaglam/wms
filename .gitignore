@@ -1,0 +1,7 @@
+# folders to ignore
+
+_[Bb]in/
+.vs/
+**/*.bak
+/images
+
