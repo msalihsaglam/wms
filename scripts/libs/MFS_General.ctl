@@ -93,6 +93,11 @@ private string GetSequenceDP(int orderType)
   return dp;
 }
 
+private bool TestForRepo()
+{
+  return true;
+}
+
 
 
 //--------------------------------------------------------------------------------
