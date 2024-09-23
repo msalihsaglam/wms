@@ -1,0 +1,88 @@
+# ascii dump of database
+
+# DpType
+TypeName
+MFS_Sequence_CFG.MFS_Sequence_CFG	1#1
+	Config	1#2
+		ActionIDs	9#3
+		ActionParameters	9#4
+	State	1#6
+		state	20#7
+MFS_toPLC_Messages.MFS_toPLC_Messages	1#1
+	Command	25#2
+	State	1#3
+		WorkInProgress	23#4
+MFS_Action_Lift_CFG.MFS_Action_Lift_CFG	1#1
+	Parameters	1#2
+		Floor	20#3
+	Config	1#4
+		Name	25#5
+		ID	25#6
+MFS_Action_Shuttle_CFG.MFS_Action_Shuttle_CFG	1#1
+	Parameters	1#2
+		OrderType	20#3
+		RafSiraNo1	20#4
+		RafsiraNo2	20#5
+	Config	1#6
+		Name	25#7
+		ID	25#8
+MFS_Lift_Equipment_Information.MFS_Lift_Equipment_Information	1#1
+	Config	1#2
+		WorkingType	20#3
+	SPC	1#4
+	SPI	1#5
+		Automatic	23#6
+		Running	23#7
+		Charging	23#8
+		Available	23#12
+	ActualValues	1#9
+		Position	1#10
+		Error	21#11
+MFS_WMS_Order.MFS_WMS_Order	1#1
+	ConnectionSettings	1#2
+		IP	1#3
+		Host	1#4
+	Order	1#5
+		actualOrder	25#6
+		bufferOrderList	9#8
+MFS_Mekik_Equipment_Information.MFS_Mekik_Equipment_Information	1#1
+	Config	1#2
+	SPI	1#4
+		Floor	20#5
+		Available	23#6
+
+# Datapoint/DpId
+DpName	TypeName	ID
+MFS_Shuttle_001_Message	MFS_toPLC_Messages	524
+MFS_Yukleme_Sequence_CFG	MFS_Sequence_CFG	525
+MFS_Action_201	MFS_Action_Shuttle_CFG	526
+MFS_Action_101	MFS_Action_Lift_CFG	527
+MFS_Shuttle_002_Message	MFS_toPLC_Messages	528
+MFS_Lift_001_Message	MFS_toPLC_Messages	529
+MFS_Action_202	MFS_Action_Shuttle_CFG	530
+MFS_Lift_001	MFS_Lift_Equipment_Information	531
+MFS_Lift_002	MFS_Lift_Equipment_Information	532
+MFS_Bosaltma_Sequence_CFG	MFS_Sequence_CFG	533
+WMS_Order	MFS_WMS_Order	534
+MFS_Mekik_001	MFS_Mekik_Equipment_Information	535
+MFS_Mekik_002	MFS_Mekik_Equipment_Information	536
+
+# DpValue
+Manager/User	ElementName	TypeName	_original.._value	_original.._status64	_original.._stime
+UI (1)/0	MFS_Yukleme_Sequence_CFG.Config.ActionIDs	MFS_Sequence_CFG	"101", "201", "101", "202", "101"	0x8300000000000101	10.08.2024 05:05:00.622
+UI (1)/0	MFS_Yukleme_Sequence_CFG.Config.ActionParameters	MFS_Sequence_CFG	"0", "10,0,0", "3", "10,5,2", "0"	0x8300000000000101	10.08.2024 05:18:14.175
+UI (1)/0	MFS_Yukleme_Sequence_CFG.State.state	MFS_Sequence_CFG	1	0x8300000000000101	11.08.2024 05:21:47.186
+UI (1)/0	MFS_Action_201.Config.Name	MFS_Action_Shuttle_CFG	"Shuttle Go Buffer Return Lift"	0x8300000000300101	10.08.2024 04:30:44.941
+UI (1)/0	MFS_Action_201.Config.ID	MFS_Action_Shuttle_CFG	"201"	0x8300000000000101	10.08.2024 04:30:47.917
+UI (1)/0	MFS_Action_101.Config.Name	MFS_Action_Lift_CFG	"Lift Go"	0x8300000000000101	10.08.2024 04:31:02.462
+UI (1)/0	MFS_Action_101.Config.ID	MFS_Action_Lift_CFG	"101"	0x8300000000000101	10.08.2024 04:30:54.533
+UI (1)/0	MFS_Action_202.Config.Name	MFS_Action_Shuttle_CFG	"Shuttle Go Raf Return Lift"	0x8300000000000101	10.08.2024 04:51:57.214
+UI (1)/0	MFS_Action_202.Config.ID	MFS_Action_Shuttle_CFG	"202"	0x8300000000000101	10.08.2024 04:52:02.390
+UI (1)/0	MFS_Lift_001.Config.WorkingType	MFS_Lift_Equipment_Information	30	0x8300000000300101	22.09.2024 21:53:20.093
+UI (1)/0	MFS_Lift_001.SPI.Available	MFS_Lift_Equipment_Information	1	0x8300000000000101	22.09.2024 21:54:04.206
+UI (1)/0	MFS_Lift_002.Config.WorkingType	MFS_Lift_Equipment_Information	10	0x8300000000100101	22.09.2024 21:53:28.627
+UI (1)/0	MFS_Lift_002.SPI.Available	MFS_Lift_Equipment_Information	1	0x8300000000000101	22.09.2024 21:54:09.722
+UI (1)/0	WMS_Order.Order.actualOrder	MFS_WMS_Order	"[{\"Order\":10},{\"RafSiraNo\":\"C-7\"}]"	0x8300000000000101	22.09.2024 21:58:16.362
+CTL (2)/0	WMS_Order.Order.bufferOrderList	MFS_WMS_Order	"[{\"Order\":10},{\"RafSiraNo\":\"C3\"}]", "[{\"Order\":10},{\"RafSiraNo\":\"C5\"}]", "[{\"Order\":10},{\"RafSiraNo\":\"C5\"}]"	0x8300000000000101	18.08.2024 21:46:01.835
+UI (1)/0	MFS_Mekik_001.SPI.Floor	MFS_Mekik_Equipment_Information	1	0x8300000000000101	22.09.2024 21:14:39.739
+UI (1)/0	MFS_Mekik_002.SPI.Floor	MFS_Mekik_Equipment_Information	5	0x8300000000000101	22.09.2024 21:14:47.974
