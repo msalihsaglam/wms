@@ -37,6 +37,8 @@ public void GetOrderCB(string dp, string value)
   CreateOrderInstance(value, orderType, rafSiraNo, equipmentList, sequence);
 
   SendCommandsToEquipments(equipmentList,sequence);
+  //gokhan
+
 
 //   DebugN("---->",WMSOrder::GetWMSOrderInstances());
 
