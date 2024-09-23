@@ -22,6 +22,18 @@
   const int RUNNING = 2;
   const int FINISHED = 3;
 
+  //Mekik Orders
+  const string MEKIK_TO_BUFFER = "1_01";
+  const string MEKIK_TO_LIFT = "1_02";
+  const string MEKIK_TO_CONVEYOR = "1_03";
+  const string MEKIK_TO_RAF = "1_04";
+
+  //Lift Orders
+  const string LIFT_TO_FLOOR = "2_01";
+  const string LIFT_TO_CONVEYOR = "2_02";
+
+  //Yukleme Sequence
+
 //--------------------------------------------------------------------------------
 /**
 */

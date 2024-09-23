@@ -24,13 +24,14 @@ class WMSOrderData
   //------------------------------------------------------------------------------
   /** The Default Constructor.
   */
-  public WMSOrderData(string orderId,string rawOrder, uint orderType, string rafSiraNo, dyn_string equipmentList)
+  public WMSOrderData(string orderId,string rawOrder, uint orderType, string rafSiraNo, dyn_string equipmentList, dyn_string sequence)
   {
     this.orderId = orderId;
     this.rawOrder = rawOrder;
     this.orderType = orderType;
     this.rafSiraNo = rafSiraNo;
     this.equipmentList = equipmentList;
+    this.sequence = sequence;
   }
 
 //--------------------------------------------------------------------------------

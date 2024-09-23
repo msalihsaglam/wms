@@ -52,6 +52,15 @@ public dyn_string FindEquipmentList(string rafSiraNo, uint orderType)
   return eqpList;
 }
 
+public dyn_string GetSequenceForOrder(uint orderType)
+{
+  string dp = "MFS_Sequence_" + orderType +"_CFG.Config.ActionIDs:_original.._value";
+  dyn_string seq;
+  dpGet(dp,seq);
+
+  return seq;
+}
+
 private string FindAvailableLift(uint orderType)
 {
   dyn_string liftNames = dpNames("*","MFS_Lift_Equipment_Information");
@@ -85,7 +94,7 @@ private string FindAvailableMekik(string rafSiraNo)
     bool available;
 
     dpGet(mekikNames.at(i) + ".SPI.Floor:_original.._value",actualFloorNumber,
-              mekikNames.at(i) + ".SPI.Available:_original.._value",available);
+          mekikNames.at(i) + ".SPI.Available:_original.._value",available);
 
      if(actualFloorNumber == floorNo && available)
     {
@@ -100,12 +109,20 @@ private string FindAvailableMekik(string rafSiraNo)
   return mekikNames.first();
 }
 
-public void CreateOrderInstance(string rawOrder, uint orderType, string rafSiraNo, dyn_string eqpList)
+public void SendCommandsToEquipments(dyn_string equipmentList,dyn_string sequence)
+{
+  //Equipment List daha önce karar verilen mekine ve asansör içeriri. First eleman mekik second eleman lift
+
+}
+
+public void CreateOrderInstance(string rawOrder, uint orderType, string rafSiraNo, dyn_string eqpList, dyn_string sequence)
 {
   string orderId = createUuid();
-  shared_ptr<WMSOrderData> wmsOrderInstance = new WMSOrderData(orderId,rawOrder,orderType,rafSiraNo,eqpList);
+  shared_ptr<WMSOrderData> wmsOrderInstance = new WMSOrderData(orderId,rawOrder,orderType,rafSiraNo,eqpList,sequence);
 
   WmsOrderInstances.append(wmsOrderInstance);
+
+  // Buradan sonra Dp ye yazma dusuulebilir. Arsivleme icin
 
   DebugN("----->",WmsOrderInstances);
 }

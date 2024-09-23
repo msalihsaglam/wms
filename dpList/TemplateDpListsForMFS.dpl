@@ -54,7 +54,7 @@ MFS_Mekik_Equipment_Information.MFS_Mekik_Equipment_Information	1#1
 # Datapoint/DpId
 DpName	TypeName	ID
 MFS_Shuttle_001_Message	MFS_toPLC_Messages	524
-MFS_Yukleme_Sequence_CFG	MFS_Sequence_CFG	525
+MFS_Sequence_10_CFG	MFS_Sequence_CFG	525
 MFS_Action_201	MFS_Action_Shuttle_CFG	526
 MFS_Action_101	MFS_Action_Lift_CFG	527
 MFS_Shuttle_002_Message	MFS_toPLC_Messages	528
@@ -62,16 +62,16 @@ MFS_Lift_001_Message	MFS_toPLC_Messages	529
 MFS_Action_202	MFS_Action_Shuttle_CFG	530
 MFS_Lift_001	MFS_Lift_Equipment_Information	531
 MFS_Lift_002	MFS_Lift_Equipment_Information	532
-MFS_Bosaltma_Sequence_CFG	MFS_Sequence_CFG	533
+MFS_Sequence_20_CFG	MFS_Sequence_CFG	533
 WMS_Order	MFS_WMS_Order	534
 MFS_Mekik_001	MFS_Mekik_Equipment_Information	535
 MFS_Mekik_002	MFS_Mekik_Equipment_Information	536
 
 # DpValue
 Manager/User	ElementName	TypeName	_original.._value	_original.._status64	_original.._stime
-UI (1)/0	MFS_Yukleme_Sequence_CFG.Config.ActionIDs	MFS_Sequence_CFG	"101", "201", "101", "202", "101"	0x8300000000000101	10.08.2024 05:05:00.622
-UI (1)/0	MFS_Yukleme_Sequence_CFG.Config.ActionParameters	MFS_Sequence_CFG	"0", "10,0,0", "3", "10,5,2", "0"	0x8300000000000101	10.08.2024 05:18:14.175
-UI (1)/0	MFS_Yukleme_Sequence_CFG.State.state	MFS_Sequence_CFG	1	0x8300000000000101	11.08.2024 05:21:47.186
+UI (1)/0	MFS_Sequence_10_CFG.Config.ActionIDs	MFS_Sequence_CFG	"101", "201", "101", "202", "101"	0x8300000000000101	10.08.2024 05:05:00.622
+UI (1)/0	MFS_Sequence_10_CFG.Config.ActionParameters	MFS_Sequence_CFG	"0", "10,0,0", "3", "10,5,2", "0"	0x8300000000000101	10.08.2024 05:18:14.175
+UI (1)/0	MFS_Sequence_10_CFG.State.state	MFS_Sequence_CFG	1	0x8300000000000101	11.08.2024 05:21:47.186
 UI (1)/0	MFS_Action_201.Config.Name	MFS_Action_Shuttle_CFG	"Shuttle Go Buffer Return Lift"	0x8300000000300101	10.08.2024 04:30:44.941
 UI (1)/0	MFS_Action_201.Config.ID	MFS_Action_Shuttle_CFG	"201"	0x8300000000000101	10.08.2024 04:30:47.917
 UI (1)/0	MFS_Action_101.Config.Name	MFS_Action_Lift_CFG	"Lift Go"	0x8300000000000101	10.08.2024 04:31:02.462

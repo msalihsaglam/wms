@@ -17,7 +17,7 @@
 */
 main()
 {
-  dpConnect("GetOrderCB",false,"System1:WMS_Order.Order.actualOrder:_original.._value");
+  dpConnect("GetOrderCB",false,"WMS_Order.Order.actualOrder:_original.._value");
 }
 
 public void GetOrderCB(string dp, string value)
@@ -26,13 +26,17 @@ public void GetOrderCB(string dp, string value)
   uint orderType;
   string rafSiraNo;
   dyn_string equipmentList;
+  dyn_string sequence;
 
   orderType = FindOrderTypeFromOrder(value);
   rafSiraNo = FindRafSiraNoFromOrder(value);
   equipmentList = FindEquipmentList(rafSiraNo,orderType);
+  sequence = GetSequenceForOrder(orderType);
 
 
-  CreateOrderInstance(value, orderType, rafSiraNo, equipmentList);
+  CreateOrderInstance(value, orderType, rafSiraNo, equipmentList, sequence);
+
+  SendCommandsToEquipments(equipmentList,sequence);
 
 //   DebugN("---->",WMSOrder::GetWMSOrderInstances());
 
