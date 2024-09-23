@@ -8,7 +8,9 @@
 
 //--------------------------------------------------------------------------------
 // Libraries used (#uses)
+#uses "classes/WMSOrderData"
 #uses "classes/enumerationOrders"
+#uses "constants"
 
 
 
@@ -16,89 +18,97 @@
 // Variables and Constants
 //--------------------------------------------------------------------------------
 
-
-public bool IsYuklemeInProgress()
+public uint FindOrderTypeFromOrder(string rawOrder)
 {
-  //Check Yukleme Sequence state element
-  return false;
-}
-
-public bool IsBosaltmaInProgress()
-{
-  //Check Bosaltma Sequence state element
-  return false;
-}
-
-public bool IsSequenceInprogress(string seqDP)
-{
-  int state;
-  dpGet(seqDP + ".State.state:_original.._value",state); // state can be another enumeration
-
-  bool inProgress;
-  if(state == 1)
-    inProgress = true;
-  else
-    inProgress = false;
-
-  return inProgress;
-}
-
-public void ParseOrder(string order, int &orderType, string &rafSiraNo)
-{
-  dyn_mapping orderMapping = jsonDecode(order);
+  uint orderType;
+  dyn_mapping orderMapping = jsonDecode(rawOrder);
 
   mapping orderTypeMapping = orderMapping.first();
   orderType = orderTypeMapping.value("Order");
 
+  return orderType;
+}
+
+public string FindRafSiraNoFromOrder(string rawOrder)
+{
+  string rafSiraNo;
+  dyn_mapping orderMapping = jsonDecode(rawOrder);
+
   mapping rafSiraNoMapping = orderMapping.last();
   rafSiraNo = rafSiraNoMapping.value("RafSiraNo");
+
+  return rafSiraNo;
 }
 
-public bool StartProcess(int orderType, string rafSiraNo)
+public dyn_string FindEquipmentList(string rafSiraNo, uint orderType)
 {
-  string seqDP = GetSequenceDP(orderType);
-  DebugN("seqDP:",seqDP);
+  dyn_string eqpList;
+  string availableMekik = FindAvailableMekik(rafSiraNo);
+  string availableLift = FindAvailableLift(orderType);
 
- bool inProgress =  IsSequenceInprogress(seqDP);
- return inProgress;
+  eqpList.append(availableMekik);
+  eqpList.append(availableLift);
+
+  return eqpList;
 }
 
-public bool SendOrderToBuffer(string order)
+private string FindAvailableLift(uint orderType)
 {
-  dyn_string orderList;
-  dpGet("WMS_Order.Order.bufferOrderList:_original.._value",orderList);
-  DebugN("First:",orderList);
-  orderList.append(order);
-  DebugN("Second:",orderList);
-  dpSet("WMS_Order.Order.bufferOrderList:_original.._value",orderList);
-
-  return true;
-}
-
-private string GetSequenceDP(int orderType)
-{
-  string orderSuffix;
-  string dp;
-  mapping enumMap = enumValues("OrderTypes");
-
-  for (uint i=0; i<enumMap.count(); ++i)
+  dyn_string liftNames = dpNames("*","MFS_Lift_Equipment_Information");
+  for(uint i=0; i<liftNames.count(); ++i)
   {
-      if (enumMap.valueAt(i) == orderType)
-      {
-        orderSuffix = enumMap.keyAt(i);
-      }
+    uint workingType;
+    bool available;
+
+    dpGet(liftNames.at(i) + ".Config.WorkingType:_original.._value",workingType,
+              liftNames.at(i) + ".SPI.Available:_original.._value",available);
+
+     if(orderType == workingType && available)
+    {
+      return liftNames.at(i);
+    }
   }
 
-  dp = "MFS_" + orderSuffix + "_Sequence_CFG";
-  return dp;
+  return liftNames.first();
 }
 
-private bool deneme()
+private string FindAvailableMekik(string rafSiraNo)
 {
-  return false;
+  dyn_string dyn_temp = strsplit(rafSiraNo,"-");
+  uint floorNo = dyn_temp.first();
+  uint siraNo = dyn_temp.last();
+
+  dyn_string mekikNames = dpNames("*","MFS_Mekik_Equipment_Information");
+  for(uint i=0; i<mekikNames.count(); ++i)
+  {
+    uint actualFloorNumber;
+    bool available;
+
+    dpGet(mekikNames.at(i) + ".SPI.Floor:_original.._value",actualFloorNumber,
+              mekikNames.at(i) + ".SPI.Available:_original.._value",available);
+
+     if(actualFloorNumber == floorNo && available)
+    {
+      return mekikNames.at(i);
+    }
+    else
+    {
+      //To Do
+    }
+  }
+
+  return mekikNames.first();
 }
 
+public void CreateOrderInstance(string rawOrder, uint orderType, string rafSiraNo, dyn_string eqpList)
+{
+  string orderId = createUuid();
+  shared_ptr<WMSOrderData> wmsOrderInstance = new WMSOrderData(orderId,rawOrder,orderType,rafSiraNo,eqpList);
 
+  WmsOrderInstances.append(wmsOrderInstance);
+
+  DebugN("----->",WmsOrderInstances);
+}
 
 //--------------------------------------------------------------------------------
 //@public members
@@ -109,3 +119,4 @@ private bool deneme()
 //@private members
 //--------------------------------------------------------------------------------
 
+private vector< shared_ptr<WMSOrderData> > WmsOrderInstances;

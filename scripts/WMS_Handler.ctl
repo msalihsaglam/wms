@@ -22,34 +22,22 @@ main()
 
 public void GetOrderCB(string dp, string value)
 {
+//   WMSOrderData wmsOrderInstance;
+  uint orderType;
+  string rafSiraNo;
+  dyn_string equipmentList;
 
-  /*
-  Parse order from WMS.
-  Find orderType and rafSiraNo
- */
+  orderType = FindOrderTypeFromOrder(value);
+  rafSiraNo = FindRafSiraNoFromOrder(value);
+  equipmentList = FindEquipmentList(rafSiraNo,orderType);
 
- int orderType;
- string rafSiraNo;
- ParseOrder(value,orderType,rafSiraNo);
 
- DebugN("orderType:",orderType);
- DebugN("rafSiraNo:",rafSiraNo);
+  CreateOrderInstance(value, orderType, rafSiraNo, equipmentList);
 
- bool result = StartProcess(orderType,rafSiraNo);
- DebugN("result:",result);
+//   DebugN("---->",WMSOrder::GetWMSOrderInstances());
 
-  /*
-  Check if there is any inprogress sequence
-   If yes, the order should be taken into buffer list
-   If no, order must be considered.
- */
+//   ParseOrder(order, orderType, rafSiraNo);
 
-   if(result)
-   {
-      SendOrderToBuffer(value);
-   }
-   else
-   {
-     //CreateSequence
-   }
+//   wmsOrderInstance = new WMSOrderData(value, orderType, rafSiraNo);
+
 }
